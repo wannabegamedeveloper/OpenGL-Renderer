@@ -14,5 +14,7 @@ I find out the vertex closest to the mouse cursor's position and through a thres
 </br>
 The fragment shader has a vec2 uniform that is fed in the value of the closest vertex's X and Y coordinates. And using the if statement I was able to locate that vertex and modify it's color. 
 </br>
-
+</br>
+<kbd>
 ![opengl1](https://user-images.githubusercontent.com/31384470/224283525-0b557706-cc7f-4983-a2e5-5eaaf77c9e8d.gif)
+</kbd>
