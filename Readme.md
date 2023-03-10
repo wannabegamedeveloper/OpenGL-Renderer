@@ -1,6 +1,6 @@
 <h1>3D Programming Using Core OpenGL</h1>
 
-I am working on a 3D rendering engine using core OpenGL. The end goal of this project is to make a rendering engine that can render any 3D model/environment imported into it. I am going to use Nano GUI for the interface. GLFW is used for input handling and creating the window. GLAD for the OpenGL functions. 
+I am working on a 3D rendering engine using core OpenGL. The end goal of this project is to make a rendering engine that can render any 3D model/environment imported into it. I am going to use Nano GUI for the interface. GLFW is used for input handling and creating the window. GLAD for loading the OpenGL functions. 
 I will be updating this repository while learning about OpenGL from <a href="https://learnopengl.com">learnopengl.com</a> and sharing the progress here through screenshots and videos. 
 
 <h2>10-03-2023</h2>
