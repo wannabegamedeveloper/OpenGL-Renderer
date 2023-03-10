@@ -10,6 +10,8 @@ I find out the vertex closest to the mouse cursor's position and through a thres
 </br>
 <kbd><img src = "https://user-images.githubusercontent.com/31384470/224296430-42524ebb-cd66-4a74-a605-990ca8d84ee7.png" width = "341px" height = "195px">
 </kbd>
+</br>
+</br>
 The fragment shader has a vec2 uniform that is fed in the value of the closest vertex's X and Y coordinates. And using the if statement I was able to locate that vertex and modify it's color. 
 </br>
 
