@@ -20,6 +20,3 @@ The fragment shader has a vec2 uniform that is fed in the value of the closest v
 
 
 
-
-https://user-images.githubusercontent.com/31384470/224492880-85313be9-7672-4389-9f59-44b4b944cc76.mp4
-
