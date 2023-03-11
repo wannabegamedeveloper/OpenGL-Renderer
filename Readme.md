@@ -18,5 +18,9 @@ The fragment shader has a vec2 uniform that is fed in the value of the closest v
 
 ![opengl1](https://user-images.githubusercontent.com/31384470/224283525-0b557706-cc7f-4983-a2e5-5eaaf77c9e8d.gif)
 
+</br>
 
+Added model, view and projection matrix to the project for some actual 3D. Used the glm library for the matrix operations. 
+</br>
+![2023-03-11 20-57-46 (online-video-cutter com)](https://user-images.githubusercontent.com/31384470/224493410-9fc0cb74-a689-45a1-84e6-b3e97515c7db.gif)
 
