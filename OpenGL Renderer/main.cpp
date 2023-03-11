@@ -209,14 +209,20 @@ int main()
 
 		glPosY *= -1;
 
-		glm::mat4 translate = glm::mat4(1.0f);
-		translate = glm::scale(translate, glm::vec3(0.5, 0.5, 0.5));
-		translate = glm::rotate(translate, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.5, 0.5, 0.5));
+		model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
+
+		glm::mat4 view = glm::mat4(1.0f);
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -1.0f));
+
+		glm::mat4 projection = glm::mat4(1.0f);
+		projection = glm::perspective(glm::radians(45.0f), WIDTH / HEIGHT, 0.1f, 100.0f);
 
 		if (!clicked)
 		{
 			FindClosestVertex(glPosX, glPosY,
-				sizeof(vertices) / sizeof(float), vertices, threshold, &index, translate);
+				sizeof(vertices) / sizeof(float), vertices, threshold, &index, projection * view * model);
 
 			if (index != -1)
 				glUniform2f(glGetUniformLocation(shader.GetID(), "selectedVertex"),
@@ -236,7 +242,7 @@ int main()
 					lastY = vertices[index + 1];
 
 					glm::vec4 mousePosition = glm::vec4(glPosX, glPosY, 0.0f, 1.0f);
-					mousePosition = translate * mousePosition;
+					mousePosition = model * mousePosition;
 
 					factorX = 2 * mousePosition.x - lastX;
 					factorY = 2 * mousePosition.y - lastY;
@@ -247,9 +253,9 @@ int main()
 				}
 
 				glm::vec4 mousePosition = glm::vec4(glPosX, glPosY, 0.0f, 1.0f);
-				mousePosition = translate * mousePosition;
+				mousePosition = model * mousePosition;
 
-				UpdateVertexPosition(vbo, 2 * mousePosition.x - factorX, 2 * mousePosition.y - factorY, index, translate);
+				UpdateVertexPosition(vbo, 2 * mousePosition.x - factorX, 2 * mousePosition.y - factorY, index, model);
 			}
 		}
 		else
@@ -265,8 +271,14 @@ int main()
 			}
 		}
 
-		GLuint transformLoc = glGetUniformLocation(shader.GetID(), "transform");
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(translate));
+		GLuint modelLoc = glGetUniformLocation(shader.GetID(), "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		GLuint viewLoc = glGetUniformLocation(shader.GetID(), "view");
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+		GLuint projectionLoc = glGetUniformLocation(shader.GetID(), "projection");
+		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
