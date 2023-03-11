@@ -7,10 +7,11 @@ out vec2 texCoord;
 out vec4 color;
 
 uniform vec2 selectedVertex;
+uniform mat4 transform;
 
 void main()
 {
-	gl_Position = vec4(aPos, 1.0);
+	gl_Position = transform * vec4(aPos, 1.0);
 	texCoord = aTexCoord;
 
 	if (aPos.xy == selectedVertex)

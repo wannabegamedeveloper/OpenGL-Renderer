@@ -2,6 +2,9 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <math.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "VAO.h"
 #include "VBO.h"
@@ -44,13 +47,18 @@ void processInput(GLFWwindow* window)
 	}
 }
 
-void UpdateVertexPosition(VBO vbo, GLfloat glPosX, GLfloat glPosY, int index)
+void UpdateVertexPosition(VBO vbo, GLfloat glPosX, GLfloat glPosY, int index, glm::mat4 translate)
 {
 	vbo.BindVBO();
+
+	glm::vec4 vert = glm::vec4(glPosX, glPosY, 0.0f, 1.0f);
+	vert = translate * vert;
+
 	GLfloat vertices2[] =
 	{
 		glPosX,  glPosY
 	};
+
 	glBufferSubData(GL_ARRAY_BUFFER, index * sizeof(GLfloat), 2 * sizeof(GLfloat), vertices2);
 }
 
@@ -61,7 +69,7 @@ void normalizeData(float value, float* result, float MAX)
 
 int test = 0;
 
-void FindClosestVertex(float posX, float posY, int dataSize, float* vertices, float threshold, int* index)
+void FindClosestVertex(float posX, float posY, int dataSize, float* vertices, float threshold, int* index, glm::mat4 translate)
 {
 	float distance = 0.0f;
 	float leastDistance = 200.0f;
@@ -69,7 +77,10 @@ void FindClosestVertex(float posX, float posY, int dataSize, float* vertices, fl
 
 	for (int i = 0; i < dataSize; i += 5)
 	{
-		float distance = sqrt(pow(posX - vertices[i], 2) + pow(posY - vertices[i + 1], 2));
+		glm::vec4 vert = glm::vec4(vertices[i], vertices[i + 1], 0.0f, 1.0f);
+		vert = translate * vert;
+
+		float distance = sqrt(pow(posX - vert.x, 2) + pow(posY - vert.y, 2));
 
 		if (distance < leastDistance && distance < threshold)
 		{
@@ -131,7 +142,7 @@ int main()
 	EBO ebo;
 	ebo.CreateEBO();
 
-	Texture texture1("container.jpg");
+	Texture texture1("grid.jpg");
 	texture1.GenerateTexture();
 	texture1.BindTexture();
 	texture1.CreateTexture(GL_RGB);
@@ -198,10 +209,14 @@ int main()
 
 		glPosY *= -1;
 
+		glm::mat4 translate = glm::mat4(1.0f);
+		translate = glm::scale(translate, glm::vec3(0.5, 0.5, 0.5));
+		translate = glm::rotate(translate, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+
 		if (!clicked)
 		{
 			FindClosestVertex(glPosX, glPosY,
-				sizeof(vertices) / sizeof(float), vertices, threshold, &index);
+				sizeof(vertices) / sizeof(float), vertices, threshold, &index, translate);
 
 			if (index != -1)
 				glUniform2f(glGetUniformLocation(shader.GetID(), "selectedVertex"),
@@ -220,12 +235,21 @@ int main()
 					lastX = vertices[index];
 					lastY = vertices[index + 1];
 
-					factorX = glPosX - lastX;
-					factorY = glPosY - lastY;
+					glm::vec4 mousePosition = glm::vec4(glPosX, glPosY, 0.0f, 1.0f);
+					mousePosition = translate * mousePosition;
+
+					factorX = 2 * mousePosition.x - lastX;
+					factorY = 2 * mousePosition.y - lastY;
+
+					std::cout << glPosX << " " << glPosY << std::endl;
+
 					clicked = true;
 				}
 
-				UpdateVertexPosition(vbo, glPosX - factorX, glPosY - factorY, index);
+				glm::vec4 mousePosition = glm::vec4(glPosX, glPosY, 0.0f, 1.0f);
+				mousePosition = translate * mousePosition;
+
+				UpdateVertexPosition(vbo, 2 * mousePosition.x - factorX, 2 * mousePosition.y - factorY, index, translate);
 			}
 		}
 		else
@@ -240,6 +264,9 @@ int main()
 				clicked = false;
 			}
 		}
+
+		GLuint transformLoc = glGetUniformLocation(shader.GetID(), "transform");
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(translate));
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
