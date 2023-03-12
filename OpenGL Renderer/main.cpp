@@ -14,7 +14,61 @@
 
 bool pressed;
 
-float WIDTH = 1920, HEIGHT = 1080;
+float WIDTH = 800, HEIGHT = 800;
+
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 1.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
+float pitch = 0.0f, yaw = -90.0f;
+
+bool firstMouse = true;
+float lastX = WIDTH / 2;
+float lastY = HEIGHT / 2;
+
+glm::vec3 direction = glm::vec3(0.0f);
+
+void mouse_callback(GLFWwindow* window, double xPos, double yPos)
+{
+	float xpos = static_cast<float>(xPos);
+	float ypos = static_cast<float>(yPos);
+
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	lastX = xpos;
+	lastY = ypos;
+
+	std::cout << xoffset << std::endl;
+
+	float sensitivity = 0.1f; // change this value to your liking
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	// make sure that when pitch is out of bounds, screen doesn't get flipped
+	if (pitch > 89.0f)
+		pitch = 89.0f;
+	if (pitch < -89.0f)
+		pitch = -89.0f;
+
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	cameraFront = glm::normalize(front);
+}
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -45,6 +99,18 @@ void processInput(GLFWwindow* window)
 		randomColor();
 		pressed = false;
 	}
+
+	const float cameraSpeed = 2.5f * deltaTime;
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		cameraPos += cameraSpeed * cameraFront;
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		cameraPos -= cameraSpeed * cameraFront;
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+
+	cameraPos.y = 0.0f;
 }
 
 void UpdateVertexPosition(VBO vbo, GLfloat glPosX, GLfloat glPosY, int index, glm::mat4 translate)
@@ -154,6 +220,18 @@ int main()
 		-0.5f,  0.5f,  0.5f,	0.0f, 0.0f,
 		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f
 	};
+	glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f,  0.0f,  0.0f),
+		glm::vec3(2.0f,  5.0f, -15.0f),
+		glm::vec3(-1.5f, -2.2f, -2.5f),
+		glm::vec3(-3.8f, -2.0f, -12.3f),
+		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(-1.7f,  3.0f, -7.5f),
+		glm::vec3(1.3f, -2.0f, -2.5f),
+		glm::vec3(1.5f,  2.0f, -2.5f),
+		glm::vec3(1.5f,  0.2f, -1.5f),
+		glm::vec3(-1.3f,  1.0f, -1.5f)
+	};
 
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -168,6 +246,7 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -176,6 +255,8 @@ int main()
 	}
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	Shader shader("vert.shader", "frag.shader");
 
@@ -249,8 +330,14 @@ int main()
 
 	float time = 10.0f;
 
+	double xPos, yPos;
+
 	while (!glfwWindowShouldClose(window))
 	{
+		float currentFrame = (float)glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		processInput(window);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -262,7 +349,6 @@ int main()
 
 		shader.Use();
 
-		double xPos, yPos;
 		glfwGetCursorPos(window, &xPos, &yPos);
 
 		normalizeData(xPos, &glPosX, WIDTH);
@@ -270,13 +356,7 @@ int main()
 
 		glPosY *= -1;
 
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.5, 0.5, 0.5));
-
-		model = glm::rotate(model, glm::radians(angle), cross);
-
-		glm::mat4 view = glm::mat4(1.0f);
-		view = glm::translate(view, glm::vec3(0.0f, -0.3f, -1.0f));
+		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 		glm::mat4 projection = glm::mat4(1.0f);
 		projection = glm::perspective(glm::radians(90.0f), WIDTH / HEIGHT, 0.1f, 100.0f);
@@ -360,10 +440,6 @@ int main()
 						cross = glm::normalize(cross);
 						cross.y *= -1;
 					}
-					else
-					{
-						cross = glm::vec3(0.0f, 1.0f, 0.0f);
-					}
 
 					angle = glm::distance(newPos, oldPos) / 10.0f + oldAngle;
 				}
@@ -382,11 +458,8 @@ int main()
 			oldCross = cross;
 
 			if (angle > 0.0f)
-				angle -= 2.0f;
+				angle -= 80.0f * deltaTime;
 		}
-
-		GLuint modelLoc = glGetUniformLocation(shader.GetID(), "model");
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 		GLuint viewLoc = glGetUniformLocation(shader.GetID(), "view");
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
@@ -394,7 +467,22 @@ int main()
 		GLuint projectionLoc = glGetUniformLocation(shader.GetID(), "projection");
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		for (GLuint i = 0; i < 10; i++)
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositions[i]);
+			model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+
+			if (i == 0)
+				model = glm::rotate(model, glm::radians(angle), cross);
+			else
+				model = glm::rotate(model, glm::radians(20.0f * i), glm::vec3(1.0f, 0.3f, 0.5f));
+
+			GLuint modelLoc = glGetUniformLocation(shader.GetID(), "model");
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
