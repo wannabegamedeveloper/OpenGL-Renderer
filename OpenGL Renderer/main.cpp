@@ -77,10 +77,10 @@ void FindClosestVertex(float posX, float posY, int dataSize, float* vertices, fl
 
 	for (int i = 0; i < dataSize; i += 5)
 	{
-		glm::vec4 vert = glm::vec4(vertices[i], vertices[i + 1], 0.0f, 1.0f);
+		glm::vec4 vert = glm::vec4(vertices[i], vertices[i + 1], vertices[i + 2], 1.0f);
 		vert = translate * vert;
 
-		float distance = sqrt(pow(posX - vert.x, 2) + pow(posY - vert.y, 2));
+		float distance = sqrt(pow(posX - vert.x, 2) + pow(posY - vert.y, 2) + pow(0.5f - vert.z, 2));
 
 		if (distance < leastDistance && distance < threshold)
 		{
@@ -94,19 +94,65 @@ void FindClosestVertex(float posX, float posY, int dataSize, float* vertices, fl
 
 int main()
 {
+	//GLfloat vertices[] =
+	//{
+	//	//  positions			//  tex coords
+	//	0.5f,  0.5f, 0.0f,		1.0f, 1.0f,
+	//	0.5f, -0.5f, 0.0f,		1.0f, 0.0f,
+	//   -0.5f, -0.5f, 0.0f,		0.0f, 0.0f,
+	//   -0.5f,  0.5f, 0.0f,		0.0f, 1.0f
+	//};
+
+	//GLuint indices[] =
+	//{
+	//	0, 1, 3,
+	//	1, 2, 3
+	//};
+
 	GLfloat vertices[] =
 	{
 		//  positions			//  tex coords
-		0.5f,  0.5f, 0.0f,		1.0f, 1.0f,
-		0.5f, -0.5f, 0.0f,		1.0f, 0.0f,
-	   -0.5f, -0.5f, 0.0f,		0.0f, 0.0f,
-	   -0.5f,  0.5f, 0.0f,		0.0f, 1.0f
-	};
+		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,	1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f,
 
-	GLuint indices[] =
-	{
-		0, 1, 3,
-		1, 2, 3
+		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,	1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,	1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,	1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,	0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,
+
+		-0.5f,  0.5f,  0.5f,	1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,	1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,	1.0f, 0.0f,
+
+		 0.5f,  0.5f,  0.5f,	1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,	0.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,	1.0f, 0.0f,
+
+		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,	1.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,	1.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,	1.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
+
+		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,	1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,	1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,	0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f
 	};
 
 	glfwInit();
@@ -158,8 +204,8 @@ int main()
 	vbo.BindVBO();
 	vbo.AddBufferData(sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	ebo.BindEBO();
-	ebo.AddBufferData(sizeof(indices), indices, GL_STATIC_DRAW);
+	/*ebo.BindEBO();
+	ebo.AddBufferData(sizeof(indices), indices, GL_STATIC_DRAW);*/
 
 	vao.LinkAttributesToShader(0, 3, GL_FLOAT, 5 * sizeof(GL_FLOAT), (void*)0);
 	vao.LinkAttributesToShader(1, 2, GL_FLOAT, 
@@ -167,17 +213,14 @@ int main()
 
 	vbo.UnbindVBO();
 
+	glEnable(GL_DEPTH_TEST);
+
 	shader.Use();
 	glUniform1i(glGetUniformLocation(shader.GetID(), "tex1"), 0);
 	glUniform1i(glGetUniformLocation(shader.GetID(), "tex2"), 1);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	bool clicked = false;
-	float factorX = 0.0f;
-	float factorY = 0.0f;
-	float lastX = 0.5f;
-	float lastY = 0.5f;
 	float glPosX = 0.0f;
 	float glPosY = 0.0f;
 
@@ -185,10 +228,31 @@ int main()
 
 	float threshold = 0.1f;
 
+	/*bool clicked = false;
+	float factorX = 0.0f;
+	float factorY = 0.0f;
+	float lastX = 0.5f;
+	float lastY = 0.5f;*/
+
+	bool clicked = false;
+	glm::vec2 oldPos = glm::vec2(0.0f);
+	glm::vec2 newPos = glm::vec2(0.0f);
+	glm::vec3 cross = glm::vec3(0.0f, 0.0f, 1.0f);
+
+	double mousePosX, mousePosY;
+
+	bool test = false;
+
+	GLfloat angle = 0.0f;
+	GLfloat oldAngle = 0.0f;
+	glm::vec3 oldCross = glm::vec3(0.0f);
+
+	float time = 10.0f;
+
 	while (!glfwWindowShouldClose(window))
 	{
 		processInput(window);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glActiveTexture(GL_TEXTURE0);
 		texture1.BindTexture();
@@ -201,9 +265,6 @@ int main()
 		double xPos, yPos;
 		glfwGetCursorPos(window, &xPos, &yPos);
 
-		glUniform4f(glGetUniformLocation(shader.GetID(), "mouseColor"), 
-			xPos / WIDTH, yPos / HEIGHT, xPos / HEIGHT, 1.0f);
-
 		normalizeData(xPos, &glPosX, WIDTH);
 		normalizeData(yPos, &glPosY, HEIGHT);
 
@@ -211,15 +272,16 @@ int main()
 
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.5, 0.5, 0.5));
-		model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
+
+		model = glm::rotate(model, glm::radians(angle), cross);
 
 		glm::mat4 view = glm::mat4(1.0f);
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -1.0f));
+		view = glm::translate(view, glm::vec3(0.0f, -0.3f, -1.0f));
 
 		glm::mat4 projection = glm::mat4(1.0f);
-		projection = glm::perspective(glm::radians(45.0f), WIDTH / HEIGHT, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(90.0f), WIDTH / HEIGHT, 0.1f, 100.0f);
 
-		if (!clicked)
+		/*if (!clicked)
 		{
 			FindClosestVertex(glPosX, glPosY,
 				sizeof(vertices) / sizeof(float), vertices, threshold, &index, projection * view * model);
@@ -230,9 +292,9 @@ int main()
 			else
 				glUniform2f(glGetUniformLocation(shader.GetID(), "selectedVertex"),
 					20.0f, 20.0f);
-		}
+		}*/
 
-		if (glfwGetMouseButton(window, 0) == GLFW_PRESS)
+		/*if (glfwGetMouseButton(window, 0) == GLFW_PRESS)
 		{
 			if (index != -1)
 			{
@@ -269,6 +331,58 @@ int main()
 
 				clicked = false;
 			}
+		{
+		}*/
+
+		if (glfwGetMouseButton(window, 0) == GLFW_PRESS)
+		{
+			if (!clicked)
+			{
+				glfwGetCursorPos(window, &mousePosX, &mousePosY);
+				oldPos = glm::vec2(mousePosX, mousePosY);
+				clicked = true;
+			}
+
+			if (clicked)
+			{
+				double newPosX, newPosY;
+				glfwGetCursorPos(window, &newPosX, &newPosY);
+
+				newPos = glm::vec2(newPosX, newPosY);
+
+				if (glm::all(glm::notEqual(oldPos, newPos)))
+				{
+					glm::vec3 moveDirection = 
+						glm::vec3(newPos.x - oldPos.x, newPos.y - oldPos.y, 0.0f);
+					if (!test)
+					{
+						cross = glm::cross(moveDirection, glm::vec3(0.0f, 0.0f, 1.0f));
+						cross = glm::normalize(cross);
+						cross.y *= -1;
+					}
+					else
+					{
+						cross = glm::vec3(0.0f, 1.0f, 0.0f);
+					}
+
+					angle = glm::distance(newPos, oldPos) / 10.0f + oldAngle;
+				}
+			}
+		}
+		else if (glfwGetMouseButton(window, 0) != GLFW_PRESS)
+		{
+			if (clicked)
+			{
+				//test = true;
+			}
+			clicked = false;
+
+			oldAngle = angle;
+			oldPos = newPos;
+			oldCross = cross;
+
+			if (angle > 0.0f)
+				angle -= 2.0f;
 		}
 
 		GLuint modelLoc = glGetUniformLocation(shader.GetID(), "model");
@@ -280,7 +394,7 @@ int main()
 		GLuint projectionLoc = glGetUniformLocation(shader.GetID(), "projection");
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
