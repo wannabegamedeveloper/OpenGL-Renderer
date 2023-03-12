@@ -23,7 +23,7 @@ Added model, view and projection matrix to the project for some actual 3D. Used 
 
 ![2023-03-11 20-57-46 (online-video-cutter com)](https://user-images.githubusercontent.com/31384470/224493410-9fc0cb74-a689-45a1-84e6-b3e97515c7db.gif)
 
-Created a cube instead of the boring plane and added some rotation to it based on mouse input. I calculate the direction vector of the cursor per frame everytime it moves. And by getting a cross product of the roll axis and the direction vector, I get the axis to rotate the cube at. Generating the following output:
+Created a cube instead of the boring plane and added some rotation to it based on mouse input. I calculate the direction vector of the cursor per frame everytime it moves. And by getting a cross product of the roll axis and the direction vector, I get the axis to rotate the cube around. Generating the following output:
 </br>
 
 ![opengl3](https://user-images.githubusercontent.com/31384470/224553153-41651c69-07ef-42d4-8490-32b8307705d9.gif)
