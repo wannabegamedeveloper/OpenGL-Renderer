@@ -3,12 +3,16 @@
 
 #include "stb_image.h"
 
-Texture::Texture(const char* texturePath)
+Texture::Texture(const char* texturePath, GLint format)
 {
 	stbi_set_flip_vertically_on_load(true);
 	data = stbi_load(texturePath, &width, &height, &nrChannels, 0);
 	if (!data)
 		std::cout << "FAILED TO GENERATE TEXTURE \n" << stbi_failure_reason();
+
+	GenerateTexture();
+	BindTexture();
+	CreateTexture(format);
 }
 
 void Texture::GenerateTexture()

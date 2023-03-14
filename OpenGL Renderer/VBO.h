@@ -7,12 +7,12 @@ private:
 	GLuint ID;
 
 public:
-	void CreateVBO();
+	VBO();
 
-	void BindVBO();
-	void UnbindVBO();
+	void Bind();
+	void Unbind();
 
 	void AddBufferData(int size, const void* data, GLenum usage);
 
-	void DeleteVBO();
+	void Delete();
 };

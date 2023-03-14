@@ -1,12 +1,12 @@
 #include "Shader.h"
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
+Shader::Shader(const char* fragmentPath)
 {
 	std::string vertexCode, fragmentCode;
 	std::ifstream vShaderFile;
 	std::ifstream fShaderFile;
 
-	vShaderFile.open(vertexPath);
+	vShaderFile.open("vert.shader");
 	fShaderFile.open(fragmentPath);
 
 	std::stringstream vShaderStream, fShaderStream;
@@ -40,6 +40,8 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
+
+	Use();
 }
 
 void Shader::Use()
@@ -50,6 +52,23 @@ void Shader::Use()
 void Shader::Delete()
 {
 	glDeleteProgram(ID);
+}
+
+void Shader::AttachTextureToSlot(Texture texture, GLint slot)
+{
+	Use();
+
+	std::stringstream stream;
+	stream << slot + 1;
+	std::string numStr;
+	stream >> numStr;
+	std::string str = "tex" + numStr;
+	const GLchar *textureName = str.c_str();
+
+	glUniform1i(glGetUniformLocation(GetID(), textureName), slot);
+
+	glActiveTexture(GL_TEXTURE0 + slot);
+	texture.BindTexture();
 }
 
 GLuint Shader::GetID()

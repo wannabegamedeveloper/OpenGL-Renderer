@@ -7,17 +7,21 @@
 #include <sstream>
 #include <iostream>
 
+#include "Texture.h"
+
 class Shader 
 {
 private:
 	GLuint ID;	
 
 public:
-	Shader(const char* vertexPath, const char* fragmentPath);
+	Shader(const char* fragmentPath);
 
 	void Use();
 
 	void Delete();
 
 	GLuint GetID();
+
+	void AttachTextureToSlot(Texture texture, GLint slot);
 };

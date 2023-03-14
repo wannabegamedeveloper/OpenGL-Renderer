@@ -158,7 +158,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Documents\OpenGL Libraries\glad\src\glad.c" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="EBO.cpp" />
+    <ClCompile Include="Level1.cpp" />
     <ClCompile Include="imageloader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -167,7 +170,10 @@
     <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="Level1.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
@@ -175,7 +181,7 @@
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="frag.shader" />
+    <None Include="unlit_textured.shader" />
     <None Include="vert.shader" />
   </ItemGroup>
   <ItemGroup>

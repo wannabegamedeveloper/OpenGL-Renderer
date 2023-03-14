@@ -7,12 +7,12 @@ private:
 	GLuint ID;
 
 public:
-	void CreateVAO();
+	VAO();
 
-	void BindVAO();
-	void UnbindVAO();
+	void Bind();
+	void Unbind();
 	
 	void LinkAttributesToShader(GLuint layout, GLint size, GLenum type, GLsizei stride, const void *pointer);
 	
-	void DeleteVAO();
+	void Delete();
 };

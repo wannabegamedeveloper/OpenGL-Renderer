@@ -11,5 +11,5 @@ uniform vec4 mouseColor;
 
 void main()
 {
-	fragColor = texture(tex1, texCoord) * color;
+	fragColor = mix(texture(tex1, texCoord), texture(tex2, texCoord), 0.2) * color;
 }

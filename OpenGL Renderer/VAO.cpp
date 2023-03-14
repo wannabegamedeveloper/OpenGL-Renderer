@@ -1,7 +1,7 @@
 #include "VAO.h"
 #include "VBO.h"
 
-void VAO::CreateVAO()
+VAO::VAO()
 {
 	glGenVertexArrays(1, &ID);
 }
@@ -12,17 +12,17 @@ void VAO::LinkAttributesToShader(GLuint layout, GLint size, GLenum type, GLsizei
 	glEnableVertexAttribArray(layout);
 }
 
-void VAO::BindVAO()
+void VAO::Bind()
 {
 	glBindVertexArray(ID);
 }
 
-void VAO::UnbindVAO()
+void VAO::Unbind()
 {
 	glBindVertexArray(0);
 }
 
-void VAO::DeleteVAO()
+void VAO::Delete()
 {
 	glDeleteVertexArrays(1, &ID);
 }

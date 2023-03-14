@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void EBO::CreateEBO()
+EBO::EBO()
 {
 	glGenBuffers(1, &ID);
 }

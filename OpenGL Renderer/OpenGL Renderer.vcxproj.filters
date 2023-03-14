@@ -9,71 +9,125 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\OpenGL Objects">
+      <UniqueIdentifier>{52b61ec8-9a61-47fa-b285-cd7156178952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc.">
+      <UniqueIdentifier>{db03583f-bd75-4072-8ee9-cc9547b4c984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Elements">
+      <UniqueIdentifier>{a2296e3d-8cf0-4475-a846-423a7974cd6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shader Classes">
+      <UniqueIdentifier>{6ed97369-3f12-4906-8be1-d6a7aa738cd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OpenGL Objects">
+      <UniqueIdentifier>{e324fcd3-109c-489f-9867-33fd38c68453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc.">
+      <UniqueIdentifier>{3919d41b-4a7e-4e29-a4f8-3b3301ea1dea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shader Classes">
+      <UniqueIdentifier>{209b6c51-45c9-4f9c-aa18-ee646de4d21a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Elements">
+      <UniqueIdentifier>{520ce1f5-3dba-410b-94eb-76fe23049cb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels">
+      <UniqueIdentifier>{be2f75c3-073a-4aad-9fac-5ae854abca39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Levels">
+      <UniqueIdentifier>{34466f74-17ea-4b1c-9ede-ed1f4ebecd57}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Images">
+      <UniqueIdentifier>{3ed6d414-6a51-4237-aba5-69e41907e777}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{367b5ab8-c2fb-40fa-9132-2b1f28c3a46e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\OpenGL Libraries\glad\src\glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VBO.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="EBO.cpp">
+      <Filter>Source Files\OpenGL Objects</Filter>
     </ClCompile>
     <ClCompile Include="VAO.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenGL Objects</Filter>
     </ClCompile>
-    <ClCompile Include="EBO.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="VBO.cpp">
+      <Filter>Source Files\OpenGL Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\..\..\Documents\OpenGL Libraries\glad\src\glad.c">
+      <Filter>Source Files\Misc.</Filter>
     </ClCompile>
     <ClCompile Include="imageloader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Misc.</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Shader Classes</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\Game Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Level1.cpp">
+      <Filter>Source Files\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Game Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EBO.h">
+      <Filter>Header Files\OpenGL Objects</Filter>
+    </ClInclude>
     <ClInclude Include="VAO.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\OpenGL Objects</Filter>
     </ClInclude>
     <ClInclude Include="VBO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EBO.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\OpenGL Objects</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Shader Classes</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Misc.</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\Game Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Level1.h">
+      <Filter>Header Files\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Game Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="frag.shader">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="vert.shader">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="unlit_textured.shader">
+      <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="cat.jpg">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Images</Filter>
     </Image>
     <Image Include="container.jpg">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Images</Filter>
     </Image>
   </ItemGroup>
 </Project>

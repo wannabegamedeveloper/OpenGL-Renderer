@@ -7,7 +7,7 @@ private:
 	GLuint ID;
 
 public:
-	void CreateEBO();
+	EBO();
 
 	void AddBufferData(int sizeOfData, const void* data, GLenum usage);
 
