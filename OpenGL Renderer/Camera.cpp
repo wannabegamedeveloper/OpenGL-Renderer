@@ -18,6 +18,8 @@ void Camera::setCamera(float FOV, float WIDTH, float HEIGHT,
 
 	GLuint projLoc = glGetUniformLocation(shader.GetID(), "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+	glClearColor(r, g, b, 1.0f);
 }
 
 void Camera::SetPosition(glm::vec3 newPosition)
@@ -28,6 +30,13 @@ void Camera::SetPosition(glm::vec3 newPosition)
 void Camera::SetRotation(glm::vec3 newRotation)
 {
 	cameraRot = newRotation;
+}
+
+void Camera::SetBackgroundColor(float r, float g, float b)
+{
+	this->r = r;
+	this->g = g;
+	this->b = b;
 }
 
 glm::vec3 Camera::GetForward()

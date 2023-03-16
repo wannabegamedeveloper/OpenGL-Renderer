@@ -15,10 +15,13 @@ private:
 	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
+	float r = 0.0f, g = 0.0f, b = 0.0f;
+
 public:
 	void setCamera(float FOV, float WIDTH, float HEIGHT, float near, float far, Shader shader);
 	void SetPosition(glm::vec3 newPosition);
 	void SetRotation(glm::vec3 newRotation);
+	void SetBackgroundColor(float r, float g, float b);
 
 	glm::vec3 GetForward();
 };
