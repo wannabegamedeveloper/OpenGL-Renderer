@@ -49,6 +49,12 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{367b5ab8-c2fb-40fa-9132-2b1f28c3a46e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ColorShooterGame">
+      <UniqueIdentifier>{2148e64e-b392-477f-9ed3-56996175648c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ColorShooterGame">
+      <UniqueIdentifier>{fe27ae30-baf6-4836-bbc6-22474a487216}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -90,6 +96,15 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="SceneRenderer.cpp">
+      <Filter>Source Files\Game Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMovement.cpp">
+      <Filter>Source Files\ColorShooterGame</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Game Elements</Filter>
+    </ClCompile>
     <ClCompile Include="LevelManager.cpp">
       <Filter>Source Files\Game Elements</Filter>
     </ClCompile>
@@ -127,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>Header Files\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneRenderer.h">
+      <Filter>Header Files\Game Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMovement.h">
+      <Filter>Header Files\ColorShooterGame</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Game Elements</Filter>
     </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Header Files\Game Elements</Filter>

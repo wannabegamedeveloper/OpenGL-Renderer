@@ -5,6 +5,8 @@
 #include "Cube.h"
 #include "Camera.h"
 
+#include <GLFW/glfw3.h>
+
 class Level1
 {
 private:
@@ -13,7 +15,9 @@ private:
 
 	Camera camera;
 
-	Cube cube;
+	Cube platform;
+
+	bool levelStarted;
 
 public:
 	void Start();
