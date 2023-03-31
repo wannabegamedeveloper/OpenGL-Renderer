@@ -25,6 +25,11 @@ void Texture::BindTexture()
 	glBindTexture(GL_TEXTURE_2D, ID);
 }
 
+void Texture::UnbindTexture()
+{
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 void Texture::CreateTexture(GLint format)
 {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

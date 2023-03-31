@@ -108,6 +108,15 @@
     <ClCompile Include="LevelManager.cpp">
       <Filter>Source Files\Game Elements</Filter>
     </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Source Files\Game Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformSpawner.cpp">
+      <Filter>Source Files\ColorShooterGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionDetector.cpp">
+      <Filter>Source Files\ColorShooterGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EBO.h">
@@ -155,12 +164,24 @@
     <ClInclude Include="LevelManager.h">
       <Filter>Header Files\Game Elements</Filter>
     </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Header Files\Game Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformSpawner.h">
+      <Filter>Header Files\ColorShooterGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionDetector.h">
+      <Filter>Header Files\ColorShooterGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vert.shader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="unlit_textured.shader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="unlit_color.shader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

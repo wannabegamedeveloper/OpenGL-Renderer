@@ -2,25 +2,24 @@
 
 #include "Cube.h"
 #include "InputManager.h"
-#include "Time.h"
 
-#include "CollisionDetector.h"
-#include "PlatformSpawner.h"
+#include <GLFW/glfw3.h>
 
-class PlayerMovement
+class PlatformSpawner
 {
 private:
-	float zPos = 0.0f;
-	float movementSpeed = -2.0f;
+	int index = 20;
+	float distance = 10.0f;
 
-	InputManager inputManager;
+	float position1 = 0.0f;
+	float position2 = 0.0f;
+	float position3 = 0.0f;
+	float x1 = -0.2f;
+	float x2 = -0.2f;
+	float x3 = -0.2f;
 
-	glm::vec3 position;
-
-	int currentPhase = 0;
-
-	CollisionDetector col; glm::vec3 phase1[3] = { glm::vec3(1.0f, 0.3f, 0.6f),
-		glm::vec3(0.6f, 1.0f, 0.3f),
+	glm::vec3 phase1[3] = { glm::vec3(1.0f, 0.3f, 0.6f), 
+		glm::vec3(0.6f, 1.0f, 0.3f), 
 		glm::vec3(0.3f, 0.6f, 1.0f) };
 
 	glm::vec3 phase2[5] = { glm::vec3(1.0f, 0.3f, 0.6f),
@@ -37,8 +36,10 @@ private:
 		glm::vec3(0.0f, 0.6f, 1.0f),
 		glm::vec3(1.0f, 0.0f, 1.0f) };
 
-	float clamp(float n, float lower, float upper);
+	void SpawnPlatform(glm::vec3 position, glm::vec3 color, Cube platform, Shader shader);
+
+	InputManager inputManager;
 
 public:
-	void Move(Cube& cube, Time time);
+	void Spawn(Cube platform, Shader shader);
 };

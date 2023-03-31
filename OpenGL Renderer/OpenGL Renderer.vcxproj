@@ -159,40 +159,47 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Documents\OpenGL Libraries\glad\src\glad.c" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="imageloader.cpp" />
     <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="PlatformSpawner.cpp" />
     <ClCompile Include="SceneRenderer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="PlatformSpawner.h" />
     <ClInclude Include="SceneRenderer.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="unlit_color.shader" />
     <None Include="unlit_textured.shader" />
     <None Include="vert.shader" />
   </ItemGroup>

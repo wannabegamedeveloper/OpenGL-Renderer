@@ -6,7 +6,7 @@ layout(location = 1) in vec2 aTexCoord;
 out vec2 texCoord;
 out vec4 color;
 
-uniform vec2 selectedVertex;
+uniform vec2 tiling;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -15,10 +15,5 @@ uniform mat4 projection;
 void main()
 {
 	gl_Position = projection * view * model * vec4(aPos, 1.0);
-	texCoord = aTexCoord;
-
-	if (aPos.xy == selectedVertex)
-		color = vec4(0.1f, 0.1f, 0.1f, 1.0f);
-	else
-		color = vec4(1.0f);
+	texCoord = aTexCoord * tiling;
 }

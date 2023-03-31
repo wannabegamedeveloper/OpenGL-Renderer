@@ -60,12 +60,15 @@ Cube::Cube()
 	vao.Unbind();
 }
 
-void Cube::draw(Shader shader, glm::vec3 position)
+void Cube::draw(Shader shader, glm::vec2 tiling)
 {
-	SetPosition(position);
+	shader.Use();
 
-	vao.Bind();
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	GLint modelLoc1 = glGetUniformLocation(shader.GetID(), "defaultColor");
+	glUniform3fv(modelLoc1, 1, glm::value_ptr(defaultColor));
+
+	GLint loc = glGetUniformLocation(shader.GetID(), "tiling");
+	glUniform2fv(loc, 1, glm::value_ptr(tiling));
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, _position);
@@ -75,7 +78,8 @@ void Cube::draw(Shader shader, glm::vec3 position)
 	modelLoc = glGetUniformLocation(shader.GetID(), "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-	SetPosition(position);
+	vao.Bind();
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 void Cube::SetPosition(glm::vec3 newPosition)
@@ -94,8 +98,18 @@ void Cube::SetScale(glm::vec3 newScale)
 	_scale = newScale;
 }
 
+void Cube::SetColor(glm::vec3 newColor)
+{
+	defaultColor = newColor;
+}
+
 void Cube::clearData()
 {
 	vao.Delete();
 	vbo.Delete();
+}
+
+float Cube::getPositionZ()
+{
+	return _position.z;
 }

@@ -12,9 +12,6 @@ glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 1.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-float deltaTime = 0.0f;
-float lastFrame = 0.0f;
-
 int main()
 {
 	Window window(WIDTH, HEIGHT, "test game", glfwGetPrimaryMonitor());
@@ -31,10 +28,6 @@ int main()
 
 	while (!glfwWindowShouldClose(window.GetWindowInstance()))
 	{
-		float currentFrame = static_cast<float>(glfwGetTime());
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		sceneRenderer.Update();

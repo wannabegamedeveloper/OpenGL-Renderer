@@ -17,4 +17,5 @@ public:
 	Texture(const char* texturePath, GLint format);
 
 	void BindTexture();
+	void UnbindTexture();
 };

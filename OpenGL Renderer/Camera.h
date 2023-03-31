@@ -18,10 +18,11 @@ private:
 	float r = 0.0f, g = 0.0f, b = 0.0f;
 
 public:
-	void setCamera(float FOV, float WIDTH, float HEIGHT, float near, float far, Shader shader);
+	void setCamera();
 	void SetPosition(glm::vec3 newPosition);
 	void SetRotation(glm::vec3 newRotation);
 	void SetBackgroundColor(float r, float g, float b);
+	void AttachShader(float FOV, float WIDTH, float HEIGHT, float near, float far, Shader shader);
 
 	glm::vec3 GetForward();
 };
