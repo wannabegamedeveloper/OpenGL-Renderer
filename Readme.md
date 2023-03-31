@@ -35,5 +35,6 @@ Raining cubes and some inputs for looking around and walking.
 
 <h2>April, 2023</h2>
 Took a little detour and redesigned the whole thing to a little game after finishing the very basics of OpenGL. The cube detects the color in the bottom tile takes up that color. It'll turn out to be a very basic hyper casual. 
+</br>
 
 ![gameplay](https://user-images.githubusercontent.com/31384470/229128797-1c35e43c-0f18-4f9f-ae78-101c795b5005.gif)
