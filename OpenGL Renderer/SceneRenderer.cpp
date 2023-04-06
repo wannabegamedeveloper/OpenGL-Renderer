@@ -10,12 +10,12 @@ void SceneRenderer::Start()
 		level1.Start();
 }
 
-void SceneRenderer::Update()
+void SceneRenderer::Update(float deltaTime)
 {
 	if (currentLevelIndex == 0)
 		mainMenu.Update();
 	if (currentLevelIndex == 1)
-		level1.Update();
+		level1.Update(deltaTime);
 }
 
 void SceneRenderer::ClearData()

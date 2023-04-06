@@ -20,6 +20,7 @@ private:
 public:
 	void setCamera();
 	void SetPosition(glm::vec3 newPosition);
+	glm::vec3 GetPosition();
 	void SetRotation(glm::vec3 newRotation);
 	void SetBackgroundColor(float r, float g, float b);
 	void AttachShader(float FOV, float WIDTH, float HEIGHT, float near, float far, Shader shader);

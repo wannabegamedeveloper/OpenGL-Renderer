@@ -4,11 +4,11 @@
 #include "Texture.h"
 #include "Cube.h"
 #include "Camera.h"
+#include "PointLight.h"
 
 #include "PlayerMovement.h"
 #include "PlatformSpawner.h"
-
-#include "Time.h"
+#include "ObstacleSpawner.h"
 
 #include <GLFW/glfw3.h>
 
@@ -19,13 +19,14 @@ private:
 	Shader* unlitTex;
 	Texture* containerTex;
 	Shader* unlitColor;
+	Shader* litColor;
+	Shader* litTex;
+	PointLight pointLight;
 
 	Camera camera;
 
 	Cube platform;
 	Cube playerCube;
-
-	Time time;
 
 	PlayerMovement playerMovement;
 
@@ -38,7 +39,7 @@ private:
 
 public:
 	void Start();
-	void Update();
+	void Update(float deltaTime);
 
 	void ClearData();
 };

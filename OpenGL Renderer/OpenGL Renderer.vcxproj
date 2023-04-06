@@ -166,7 +166,9 @@
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="imageloader.cpp" />
     <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="ObstacleSpawner.cpp" />
     <ClCompile Include="PlatformSpawner.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="SceneRenderer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -186,7 +188,9 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="ObstacleSpawner.h" />
     <ClInclude Include="PlatformSpawner.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="SceneRenderer.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="PlayerMovement.h" />
@@ -199,6 +203,8 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lit_color.shader" />
+    <None Include="lit_textured.shader" />
     <None Include="unlit_color.shader" />
     <None Include="unlit_textured.shader" />
     <None Include="vert.shader" />

@@ -8,10 +8,13 @@ void Level1::Start()
 	containerTex = new Texture("circle.png", GL_RGBA);
 	unlitColor = new Shader("unlit_color.shader");
 
+	litColor = new Shader("lit_color.shader");
+	litTex = new Shader("lit_textured.shader");
+
 	levelStarted = true;
 }
 
-void Level1::Update()
+void Level1::Update(float deltaTime)
 {
 	if (!levelStarted)
 	{
@@ -19,30 +22,36 @@ void Level1::Update()
 		return;
 	}
 
-	time.CreateDeltaTime();
-
-	positionZ -= speed * time.GetDeltaTime();
+	positionZ -= speed * deltaTime;
 
 	camera.setCamera();
-	camera.SetPosition(glm::vec3(0.0f, 1.5f, positionZ));
-	camera.SetRotation(glm::vec3(0.0f, -50.0f, 0.0f));
+	camera.SetPosition(glm::vec3(0.0f, 0.2f, positionZ));
+	camera.SetRotation(glm::vec3(0.0f, 0.0f, 0.0f));
 
 	camera.SetBackgroundColor(0.4f, 0.2f, 0.9f);
 
-	playerCube.draw(*unlitTex, glm::vec2(1.0f, 1.0f));
-	unlitTex->AttachTextureToSlot(*containerTex, 0);
-	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *unlitTex);
+	playerCube.draw(*litTex, glm::vec2(1.0f, 1.0f));
+	litTex->AttachTextureToSlot(*containerTex, 0);
+	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *litTex);
 
-	playerMovement.Move(playerCube, time);
+	playerMovement.Move(playerCube, deltaTime, *litTex);
 
 	platform.SetPosition(glm::vec3(0.0f, -0.5f, -0.0f));
 	platform.SetRotation(0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	platform.SetScale(glm::vec3(0.7f, 0.1f, 10.0f));
 
-	platformSpawner.Spawn(platform, *unlitColor);
-	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *unlitColor);
+	platformSpawner.Spawn(platform, *litColor);
+	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *litColor);
 
 	playerCube.SetScale(glm::vec3(0.2f));
+
+	pointLight.SetPosition(glm::vec3(0.0f, -0.2f, positionZ), *litTex);
+	pointLight.SetPosition(glm::vec3(0.0f, -0.2f, positionZ), *litColor);
+	pointLight.SetColor(glm::vec3(1.0f, 1.0f, 1.0f), *litColor);
+	pointLight.SetColor(glm::vec3(1.0f, 1.0f, 1.0f), *litTex);
+	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *litColor);
+	pointLight.SetupLight(*unlitColor, camera);
+	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *unlitColor);
 }
 
 void Level1::ClearData()

@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Cube.h"
 #include "Camera.h"
+#include "Time.h"
 
 float WIDTH = 800, HEIGHT = 800;
 
@@ -26,11 +27,14 @@ int main()
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	Time time;
+
 	while (!glfwWindowShouldClose(window.GetWindowInstance()))
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		sceneRenderer.Update();
+		time.CreateDeltaTime();
+		sceneRenderer.Update(time.GetDeltaTime());
 
 		glfwSwapBuffers(window.GetWindowInstance());
 		glfwPollEvents();

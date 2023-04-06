@@ -16,7 +16,7 @@ private:
 
 public:
 	void Start();
-	void Update();
+	void Update(float deltaTime);
 	void ClearData();
 
 	friend class MainMenu;

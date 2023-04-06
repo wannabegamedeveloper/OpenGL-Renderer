@@ -16,6 +16,11 @@ void Camera::SetPosition(glm::vec3 newPosition)
 	cameraPos = newPosition;
 }
 
+glm::vec3 Camera::GetPosition()
+{
+	return cameraPos;
+}
+
 void Camera::SetRotation(glm::vec3 newRotation)
 {
 	cameraRot = newRotation;
