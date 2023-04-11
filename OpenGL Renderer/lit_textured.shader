@@ -16,24 +16,32 @@ uniform vec3 cameraPos;
 
 void main()
 {
-	vec3 norm = normalize(normal);
-	vec3 lightDir = normalize(lightPos - fragmentPos);
+    // ambient
+    float ambientStrength = 0.1;
+    vec3 ambient = ambientStrength * lightColor;
 
-	float diff = max(dot(norm, lightDir), 0.0);
-	vec3 diffuse = diff * lightColor;
+    // diffuse 
+    vec3 norm = normalize(normal);
+    vec3 lightDir = normalize(lightPos - fragmentPos);
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = diff * lightColor;
 
-	float specularStrength = 0.5;
+    // specular
+    float specularStrength = 0.5;
+    vec3 viewDir = normalize(cameraPos - fragmentPos);
+    vec3 reflectDir = reflect(-lightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+    vec3 specular = specularStrength * spec * lightColor;
 
-	vec3 viewDir = normalize(cameraPos - fragmentPos);
-	vec3 reflectDir = reflect(-lightDir, norm);
+    float distance = length(lightPos - fragmentPos);
+    float attenuation = 1.0 / (1.0f + 0.09f * distance +
+        0.032f * (distance * distance));
 
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 256);
-	vec3 specular = specularStrength * spec * lightColor;
+    ambient *= attenuation;
+    diffuse *= attenuation;
+    specular *= attenuation;
 
-	float ambientStrength = 0.0;
-	vec3 ambient = ambientStrength * lightColor;
+    vec3 litObj = (ambient + diffuse + specular) * defaultColor;
 
-	vec3 litObj = (ambient + diffuse + specular) * defaultColor;
-
-	fragColor = texture(tex1, texCoord) * vec4(defaultColor, 1.0) * vec4(litObj, 1.0);
+	fragColor = texture(tex1, texCoord) * vec4(litObj, 1.0);
 }

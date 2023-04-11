@@ -25,8 +25,17 @@ void Level1::Update(float deltaTime)
 	positionZ -= speed * deltaTime;
 
 	camera.setCamera();
-	camera.SetPosition(glm::vec3(0.0f, 0.2f, positionZ));
-	camera.SetRotation(glm::vec3(0.0f, 0.0f, 0.0f));
+	camera.SetPosition(glm::vec3(0.0f, 1.5f, positionZ));
+	camera.SetRotation(glm::vec3(0.0f, -50.0f, 0.0f));
+
+	pointLight.SetPosition(glm::vec3(0.0f, -0.2f, positionZ), *litColor, camera);
+	pointLight.SetPosition(glm::vec3(0.0f, -0.2f, positionZ), *litTex, camera);
+	pointLight.SetColor(glm::vec3(1.0f, 1.0f, 1.0f), *litColor);
+	pointLight.SetColor(glm::vec3(1.0f, 1.0f, 1.0f), *litTex);
+	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *litColor);
+	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *litTex);
+	pointLight.SetupLight(*unlitColor);
+	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *unlitColor);
 
 	camera.SetBackgroundColor(0.4f, 0.2f, 0.9f);
 
@@ -44,14 +53,6 @@ void Level1::Update(float deltaTime)
 	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *litColor);
 
 	playerCube.SetScale(glm::vec3(0.2f));
-
-	pointLight.SetPosition(glm::vec3(0.0f, -0.2f, positionZ), *litTex);
-	pointLight.SetPosition(glm::vec3(0.0f, -0.2f, positionZ), *litColor);
-	pointLight.SetColor(glm::vec3(1.0f, 1.0f, 1.0f), *litColor);
-	pointLight.SetColor(glm::vec3(1.0f, 1.0f, 1.0f), *litTex);
-	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *litColor);
-	pointLight.SetupLight(*unlitColor, camera);
-	camera.AttachShader(90.0f, 800, 800, 0.01f, 100.0f, *unlitColor);
 }
 
 void Level1::ClearData()

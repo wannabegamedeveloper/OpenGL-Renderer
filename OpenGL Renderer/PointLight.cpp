@@ -1,22 +1,15 @@
 #include "PointLight.h"
 
-void PointLight::SetupLight(Shader shader, Camera camera)
+void PointLight::SetupLight(Shader shader)
 {
 	cube.SetPosition(position);
 	cube.SetColor(color);
-
-	shader.Use();
-
-	GLint loc = glGetUniformLocation(shader.GetID(), "cameraPos");
-	glUniform3fv(loc, 1, glm::value_ptr(camera.GetPosition()));
-
-	std::cout << camera.GetPosition().z << std::endl;
-
 	cube.SetScale(glm::vec3(0.1f, 0.1f, 0.1f));
+
 	cube.draw(shader, glm::vec2(1.0f, 1.0f));
 }
 
-void PointLight::SetPosition(glm::vec3 pos, Shader shader)
+void PointLight::SetPosition(glm::vec3 pos, Shader shader, Camera camera)
 {
 	position = pos;
 
@@ -24,6 +17,9 @@ void PointLight::SetPosition(glm::vec3 pos, Shader shader)
 
 	GLint loc = glGetUniformLocation(shader.GetID(), "lightPos");
 	glUniform3fv(loc, 1, glm::value_ptr(pos));
+
+	GLint loc2 = glGetUniformLocation(shader.GetID(), "cameraPos");
+	glUniform3fv(loc2, 1, glm::value_ptr(camera.GetPosition()));
 }
 
 void PointLight::SetColor(glm::vec3 col, Shader shader)

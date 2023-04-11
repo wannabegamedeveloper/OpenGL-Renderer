@@ -11,7 +11,7 @@ private:
 	glm::vec3 position = glm::vec3(0.0f);
 
 public:
-	void SetupLight(Shader shader, Camera camera);
+	void SetupLight(Shader shader);
 	void SetColor(glm::vec3 color, Shader shader);
-	void SetPosition(glm::vec3 pos, Shader shader);
+	void SetPosition(glm::vec3 pos, Shader shader, Camera camera);
 };
